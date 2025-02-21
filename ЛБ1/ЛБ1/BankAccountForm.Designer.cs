@@ -1,6 +1,6 @@
-﻿namespace ЛБ1
+﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class BankAccountForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -37,7 +37,7 @@
         //    this.ClientSize = new System.Drawing.Size(800, 450);
         //    this.Name = "Form1";
         //    this.Text = "Form1";
-        //    this.Load += new System.EventHandler(this.Form1_Load);
+        //    //this.Load += new System.EventHandler(this.Form1_Load);
         //    this.ResumeLayout(false);
 
         //}
@@ -45,4 +45,3 @@
         #endregion
     }
 }
-
