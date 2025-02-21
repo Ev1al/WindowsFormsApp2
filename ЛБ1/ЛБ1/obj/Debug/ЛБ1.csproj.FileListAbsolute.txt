@@ -7,3 +7,4 @@ C:\Users\user\Desktop\ЛБ1\WindowsFormsApp2\ЛБ1\ЛБ1\obj\Debug\ЛБ1.csproj.
 C:\Users\user\Desktop\ЛБ1\WindowsFormsApp2\ЛБ1\ЛБ1\obj\Debug\ЛБ1.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\ЛБ1\WindowsFormsApp2\ЛБ1\ЛБ1\obj\Debug\ЛБ1.exe
 C:\Users\user\Desktop\ЛБ1\WindowsFormsApp2\ЛБ1\ЛБ1\obj\Debug\ЛБ1.pdb
+C:\Users\user\Desktop\ЛБ1\WindowsFormsApp2\ЛБ1\ЛБ1\obj\Debug\ЛБ1.BankAccountForm.resources
