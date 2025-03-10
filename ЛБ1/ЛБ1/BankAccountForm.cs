@@ -11,13 +11,16 @@ using System.Windows.Forms;
 namespace ЛБ1
 {
 
-    public class BankAccountForm : Form
+    public partial class BankAccountForm : Form
     {
-        private BankAccount account;
+        private List<BankAccount> bankAccounts = new List<BankAccount>();
         private TextBox nameTextBox;
         private TextBox amountTextBox;
+        private Label nameLabel;
+        private Label amountLabel;
         private Label balanceLabel;
         private Button createAccountButton;
+        private Button getBalanceButton;
         private Button depositButton;
         private Button withdrawButton;
         public BankAccountForm()
@@ -25,17 +28,27 @@ namespace ЛБ1
             this.Text = "Управление банковским счётом";
             this.Width = 400;
             this.Height = 300;
-            nameTextBox = new TextBox
+            nameLabel = new Label
             {
                 Location = new System.Drawing.Point(10, 10),
+                Width = 50,
+                Text = "Имя:",
+            };
+            nameTextBox = new TextBox
+            {
+                Location = new System.Drawing.Point(70, 10),
                 Width = 200,
-                //PlaceholderText = "Имя владельца"
+            };
+            amountLabel = new Label
+            {
+                Location = new System.Drawing.Point(10, 40),
+                Width = 50,
+                Text = "Сумма:",
             };
             amountTextBox = new TextBox
             {
-                Location = new System.Drawing.Point(10, 40),
+                Location = new System.Drawing.Point(70, 40),
                 Width = 200,
-                //PlaceholderText = "Сумма"
             };
             createAccountButton = new Button
             {
@@ -55,22 +68,51 @@ namespace ЛБ1
             {
                 Location = new System.Drawing.Point(10, 100),
                 Text = "Снять",
-                Width = 210
+                Width = 100
             };
             withdrawButton.Click += WithdrawButton_Click;
+            getBalanceButton = new Button
+            {
+                Location = new System.Drawing.Point(120, 100),
+                Text = "Баланс",
+                Width = 100
+            };
+            getBalanceButton.Click += GetBalanceButton_Click;
             balanceLabel = new Label
             {
                 Location = new System.Drawing.Point(10, 130),
                 Width = 200,
                 Text = "Баланс: 0"
             };
+            this.Controls.Add(nameLabel);
+            this.Controls.Add(amountLabel);
             this.Controls.Add(nameTextBox);
             this.Controls.Add(amountTextBox);
             this.Controls.Add(createAccountButton);
+            this.Controls.Add(getBalanceButton);
             this.Controls.Add(depositButton);
             this.Controls.Add(withdrawButton);
             this.Controls.Add(balanceLabel);
         }
+
+        private void GetBalanceButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (amountTextBox.Text != string.Empty) throw new Exception("Очистите поле с деньгами!");
+
+                BankAccount account = bankAccounts.Find(x => x.GetOwnerName() == nameTextBox.Text);
+
+                if (account == null) throw new Exception("Владелец не найден!");
+
+                balanceLabel.Text = $"Баланс: {account.GetBalance()}";
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(nameTextBox.Text))
@@ -89,12 +131,22 @@ namespace ЛБ1
                 MessageBox.Show("Неверный формат суммы!");
                 return;
             }
-            account = new BankAccount(nameTextBox.Text, initialBalance);
-            balanceLabel.Text = $"Баланс: {initialBalance}";
-            MessageBox.Show("Счёт создан!");
+            try
+            {
+                BankAccount account = new BankAccount(nameTextBox.Text, initialBalance);
+                bankAccounts.Add(account);
+
+                balanceLabel.Text = $"Баланс: {initialBalance}";
+                MessageBox.Show("Счёт создан!");
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void DepositButton_Click(object sender, EventArgs e)
         {
+            BankAccount account = bankAccounts.Find(x => x.GetOwnerName() == nameTextBox.Text);
+
             if (account == null)
             {
                 MessageBox.Show("Сначала создайте счёт!");
@@ -124,6 +176,8 @@ namespace ЛБ1
         }
         private void WithdrawButton_Click(object sender, EventArgs e)
         {
+            BankAccount account = bankAccounts.Find(x => x.GetOwnerName() == nameTextBox.Text);
+
             if (account == null)
             {
                 MessageBox.Show("Сначала создайте счёт!");
