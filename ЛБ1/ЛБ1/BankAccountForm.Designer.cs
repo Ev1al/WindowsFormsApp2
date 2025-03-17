@@ -1,4 +1,4 @@
-﻿namespace ЛБ1
+﻿namespace WindowsFormsApp1
 {
     partial class BankAccountForm
     {

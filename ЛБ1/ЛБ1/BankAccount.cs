@@ -7,9 +7,6 @@ public class BankAccount
     private const decimal maxAmount = 1000000;
     public BankAccount(string ownerName, decimal initialBalance)
     {
-        if (initialBalance < 0) throw new Exception("Сумма начального баланса не может быть отрицательной!");
-        if (ownerName == null) throw new ArgumentNullException("Пустое имя владельца!");
-
         this.ownerName = ownerName;
         this.balance = initialBalance;
     }
